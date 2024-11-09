@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Job Post Classifier</h2>
+        <form id="jobForm" method="POST" action="/classify">  <!-- Specify action for form submission -->
+            <label for="company_profile">Company:</label>
+            <input type="text" id="company_profile" name="company_profile" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="requirements">Requirements:</label>
+            <textarea id="requirements" name="requirements" required></textarea>
+
+            <label for="benefits">Benefits:</label>
+            <textarea id="benefits" name="benefits" required></textarea>
+
+            <!-- Additional feature inputs -->
+            <label>Telecommuting (0 or 1):</label>
+            <label for="telecommuting"><input type="radio" id="telecommuting" name="telecommuting" value="0">0</label>
+            <label><input type="radio" id="telecommuting" name="telecommuting" value="1">1</label>
+            
+            <label>Has Company Logo (0 or 1):</label>
+            <label for="has_company_logo"><input type="radio" id="has_company_logo" name="has_company_logo" value="0">0</label>
+            <label for="has_company_logo"><input type="radio" id="has_company_logo" name="has_company_logo" value="1">1</label>
+            
+            <label>Has Questions (0 or 1):</label>
+            <label for="has_questions"><input type="radio" id="has_questions" name="has_questions" value="0">0</label>
+            <label for="has_questions"><input type="radio" id="has_questions" name="has_questions" value="1">1</label>
+            
+            <label for="required_experience">Required Experience:</label>
+            <input type="text" id="required_experience" name="required_experience" required>
+
+            <label for="required_education">Required Education:</label>
+            <input type="text" id="required_education" name="required_education" required>
+
+            <label for="industry">Industry:</label>
+            <input type="text" id="industry" name="industry" required>
+
+            <label for="function">Function:</label>
+            <input type="text" id="function" name="function" required>
+
+            <button type="submit">Classify Job Post</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script> <!-- Load your JavaScript file here -->
+</body>
+</html>
