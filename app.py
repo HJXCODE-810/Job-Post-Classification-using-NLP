@@ -8,9 +8,9 @@ from nltk.corpus import stopwords
 import io
 
 # Download necessary NLTK resources (uncomment if running for the first time)
- nltk.download('punkt')
- nltk.download('vader_lexicon')
- nltk.download('stopwords')
+ #nltk.download('punkt')
+ # nltk.download('vader_lexicon')
+ # nltk.download('stopwords')
 
 app = Flask(__name__)
 
@@ -96,4 +96,5 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)
+
 
