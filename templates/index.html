@@ -3,54 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Classification</title>
+    <title>Job Post Classifier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h2>Job Post Classifier</h2>
-        <form id="jobForm" method="POST" action="/classify">  <!-- Specify action for form submission -->
-            <label for="company_profile">Company:</label>
-            <input type="text" id="company_profile" name="company_profile" required>
+    <div class="container my-5">
+        <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header bg-primary text-white text-center">
+                <h1 class="card-title mb-0">Job Post Classification</h1>
+            </div>
+            <div class="card-body">
+                <p class="text-muted text-center">Upload your CSV file to classify job posts based on their content.</p>
+                <form action="/upload" method="post" enctype="multipart/form-data" class="text-center">
+                    <!-- File Input Field -->
+                    <div class="form-group">
+                        <input type="file" name="file" accept=".csv" class="form-control-file file-input" id="fileInput" required>
+                    </div>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-lg mt-3" id="submitButton">Upload</button>
+                </form>
 
-            <label for="requirements">Requirements:</label>
-            <textarea id="requirements" name="requirements" required></textarea>
-
-            <label for="benefits">Benefits:</label>
-            <textarea id="benefits" name="benefits" required></textarea>
-
-            <!-- Additional feature inputs -->
-            <label>Telecommuting (0 or 1):</label>
-            <label for="telecommuting"><input type="radio" id="telecommuting" name="telecommuting" value="0">0</label>
-            <label><input type="radio" id="telecommuting" name="telecommuting" value="1">1</label>
-            
-            <label>Has Company Logo (0 or 1):</label>
-            <label for="has_company_logo"><input type="radio" id="has_company_logo" name="has_company_logo" value="0">0</label>
-            <label for="has_company_logo"><input type="radio" id="has_company_logo" name="has_company_logo" value="1">1</label>
-            
-            <label>Has Questions (0 or 1):</label>
-            <label for="has_questions"><input type="radio" id="has_questions" name="has_questions" value="0">0</label>
-            <label for="has_questions"><input type="radio" id="has_questions" name="has_questions" value="1">1</label>
-            
-            <label for="required_experience">Required Experience:</label>
-            <input type="text" id="required_experience" name="required_experience" required>
-
-            <label for="required_education">Required Education:</label>
-            <input type="text" id="required_education" name="required_education" required>
-
-            <label for="industry">Industry:</label>
-            <input type="text" id="industry" name="industry" required>
-
-            <label for="function">Function:</label>
-            <input type="text" id="function" name="function" required>
-
-            <button type="submit">Classify Job Post</button>
-        </form>
-        <div id="result"></div>
+                <!-- Result Display -->
+                <div id="result" class="mt-4 text-center"></div>
+            </div>
+        </div>
     </div>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script> <!-- Load your JavaScript file here -->
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
