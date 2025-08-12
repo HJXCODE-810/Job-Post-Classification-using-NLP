@@ -1,0 +1,4 @@
+stopwords
+punkt
+punkt_tab
+vader_lexicon
