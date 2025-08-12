@@ -1,5 +1,6 @@
 Flask
-scikit-learn
+scikit-learn==1.4.2
 pandas
 gunicorn
 nltk
+
