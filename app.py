@@ -8,27 +8,8 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import os
 
-# --- Robust NLTK resource check/download ---
-def ensure_nltk_resource(resource_name):
-    """
-    Ensure the given NLTK resource is available. 
-    Detects corpora/tokenizers automatically.
-    """
-    try:
-        nltk.data.find(f'corpora/{resource_name}')
-    except LookupError:
-        try:
-            nltk.data.find(f'tokenizers/{resource_name}')
-        except LookupError:
-            nltk.download(resource_name)
-
-def ensure_nltk_all():
-    # Added punkt_tab to fix Render error
-    for res in ['stopwords', 'punkt', 'punkt_tab', 'vader_lexicon']:
-        ensure_nltk_resource(res)
-
-# Run check once at startup
-ensure_nltk_all()
+# --- Tell NLTK where Render stores downloaded data ---
+nltk.data.path.append("/opt/render/nltk_data")
 
 app = Flask(__name__)
 
