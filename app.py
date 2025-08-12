@@ -13,11 +13,11 @@ nltk.download('stopwords')
 app = Flask(__name__)
 
 # Load the model, encoder, and TF-IDF Vectorizer
-with open('E:/Assignments/0.1_web_dev/model/model.pkl', 'rb') as model_file:
+with open('model/model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
-with open('E:/Assignments/0.1_web_dev/model/encoder.pkl', 'rb') as encoder_file:
+with open('model/encoder.pkl', 'rb') as encoder_file:
     encoder = pickle.load(encoder_file)
-with open('E:/Assignments/0.1_web_dev/model/tfidf.pkl', 'rb') as tfidf_file:
+with open('model/tfidf.pkl', 'rb') as tfidf_file:
     tfidf = pickle.load(tfidf_file)
 
 # Text preprocessing function
@@ -98,3 +98,4 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
+
