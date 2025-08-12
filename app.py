@@ -8,26 +8,35 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import os
 
-# --- Robust NLTK resource download ---
+# --- Robust NLTK resource check/download ---
 def ensure_nltk_resource(resource_name):
+    """
+    Ensure the given NLTK resource is available. 
+    Detects corpora/tokenizers automatically.
+    """
     try:
         nltk.data.find(f'corpora/{resource_name}')
     except LookupError:
-        nltk.download(resource_name)
+        try:
+            nltk.data.find(f'tokenizers/{resource_name}')
+        except LookupError:
+            nltk.download(resource_name)
 
 def ensure_nltk_all():
-    for res in ['stopwords', 'punkt', 'vader_lexicon']:
+    # Added punkt_tab to fix Render error
+    for res in ['stopwords', 'punkt', 'punkt_tab', 'vader_lexicon']:
         ensure_nltk_resource(res)
 
+# Run check once at startup
 ensure_nltk_all()
 
 app = Flask(__name__)
 
-# --- Load model & vectorizer (ensure scikit-learn version matches pickled files!) ---
+# --- Load model & vectorizer ---
 model = joblib.load('model/model.pkl')
 tfidf = joblib.load('model/tfidf.pkl')
 
-# --- Initialize NLTK components ---
+# --- Initialize NLP tools ---
 stop_words = set(stopwords.words('english'))
 sia = SentimentIntensityAnalyzer()
 ps = PorterStemmer()
@@ -57,7 +66,7 @@ def preprocess_input_data(df):
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Make sure templates/index.html exists
+    return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -79,5 +88,4 @@ def upload_file():
     return "Invalid file format", 400
 
 if __name__ == '__main__':
-    # For Render: don't use app.run()—use Gunicorn with 'gunicorn app:app'
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
